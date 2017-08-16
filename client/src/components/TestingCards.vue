@@ -6,16 +6,16 @@
 			<h4 class="card-title">{{ task.task }}</h4>
 			<p class="card-text">{{ task.description }}</p>
 		</div>
-		<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#wipModal">
+		<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#testingModal">
 			Task Detail
 		</button>
 
 			<!-- Modal -->
-		<div class="modal fade" id="wipModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal fade" id="testingModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">{{ task.task }}</h5>
+						<h5 class="modal-title" id="exampleModalLabel">Testing: {{ task.task }}</h5>
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
@@ -33,13 +33,12 @@
 							<strong>Assigned to:</strong>
 							{{ task.assignee }}
 						</p>
-						<button @click="toToDo(task)" type="button" class="btn btn-info" data-dismiss="modal">To-Do</button>
+						<button @click="toWIP(task)" type="button" class="btn btn-info" data-dismiss="modal">Work in Progress</button>
 						<button @click="remove(task)" type="button" class="btn btn-danger" data-dismiss="modal">Delete</button>
-						<button @click="toTesting(task)" type="button" class="btn btn-warning" data-dismiss="modal">Testing</button>
+						<button @click="toDone(task)" type="button" class="btn btn-success" data-dismiss="modal">Done</button>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-						<button type="button" class="btn btn-primary">Add Task</button>
 					</div>
 				</div>
 			</div>
@@ -64,14 +63,14 @@ export default {
 				this.$store.dispatch('removeTask', task.id)
 			}
 		},
-		toToDo (task) {
-			if (window.confirm('Make this task become to do?')) {
-				this.$store.dispatch('toToDo', task)
+		toWIP (task) {
+			if (window.confirm('Make this task become work in progress again?')) {
+				this.$store.dispatch('toWIP', task)
 			}
 		},
-		toTesting (task) {
-			if (window.confirm('Make this task become testing?')) {
-				this.$store.dispatch('toTesting', task)
+		toDone (task) {
+			if (window.confirm('Make this task become done?')) {
+				this.$store.dispatch('toDone', task)
 			}
 		}
 	}

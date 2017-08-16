@@ -85,6 +85,16 @@ export const store = new Vuex.Store({
 				poin: context.poin,
 				status: 'testing'
 			})
+		},
+		toDone (state, context) {
+			db.ref(`tasks/${context.id}`).set({
+				id: context.id,
+				task: context.task,
+				description: context.description,
+				assignee: context.assignee,
+				poin: context.poin,
+				status: 'done'
+			})
 		}
 	},
 	getters: {
@@ -101,6 +111,11 @@ export const store = new Vuex.Store({
 		taskTesting (state) {
 			return state.tasks.filter(task => {
 				return task.status === "testing"
+			})
+		},
+		taskDone (state) {
+			return state.tasks.filter(task => {
+				return task.status === "done"
 			})
 		}
 	}
