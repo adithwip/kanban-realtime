@@ -1,7 +1,7 @@
 <template lang="html">
 <div class="col">
 	<div v-for="task in tasks" id="cards-todo" class="card bg-primary mb-3" style="max-width: 20rem;">
-		<div class="card-header">To-Do</div>
+		<div class="card-header">Work in Progress</div>
 		<div class="card-body">
 			<h4 class="card-title">{{ task.task }}</h4>
 			<p class="card-text">{{ task.description }}</p>
@@ -35,7 +35,7 @@
 						</p>
 						<button @click="toToDo(task)" type="button" class="btn btn-info" data-dismiss="modal">To-Do</button>
 						<button @click="remove(task)" type="button" class="btn btn-danger" data-dismiss="modal">Delete</button>
-						<button @click="toWIP(task)" type="button" class="btn btn-warning" data-dismiss="modal">Testing</button>
+						<button @click="toTesting(task)" type="button" class="btn btn-warning" data-dismiss="modal">Testing</button>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -67,6 +67,11 @@ export default {
 		toToDo (task) {
 			if (window.confirm('Make this task become to do?')) {
 				this.$store.dispatch('toToDo', task)
+			}
+		},
+		toTesting (task) {
+			if (window.confirm('Make this task become testing?')) {
+				this.$store.dispatch('toTesting', task)
 			}
 		}
 	}
