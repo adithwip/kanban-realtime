@@ -64,7 +64,7 @@ export default {
 			}
 		},
 		toToDo (task) {
-			if (window.confirm('Make this task become to do?')) {
+			if (window.confirm('Make this task become to do again?')) {
 				this.$store.dispatch('toToDo', task)
 			}
 		},

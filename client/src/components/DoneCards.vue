@@ -1,62 +1,76 @@
 <template lang="html">
-	<div>
-		<!-- Todo -->
-			<div class="col">
-				<div id="cards-done" class="card text-white bg-success mb-3" style="max-width: 20rem;">
-					<div class="card-header">Done</div>
-					<div class="card-body">
-						<h4 class="card-title">Done card title</h4>
-						<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+<div class="col">
+	<div v-for="task in tasks" id="cards-todo" class="card bg-success mb-3" style="max-width: 20rem;">
+		<div class="card-header">Done</div>
+		<div class="card-body">
+			<h4 class="card-title">{{ task.task }}</h4>
+			<p class="card-text">{{ task.description }}</p>
+		</div>
+		<button type="button" class="btn btn-success" data-toggle="modal" data-target="#testingModal">
+			Task Detail
+		</button>
+
+			<!-- Modal -->
+		<div class="modal fade" id="testingModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Done: {{ task.task }}</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
 					</div>
-					<button type="button" class="btn btn-success" data-toggle="modal" data-target="#wipModal">
-						Task Detail
-					</button>
+					<div class="modal-body">
+						<p class="test-center">
+							<strong>Description:</strong>
+							{{ task.description }}
+						</p>
+						<p class="test-center">
+							<strong>Poin:</strong>
+							{{ task.poin }}
+						</p>
+						<p class="test-center">
+							<strong>Assigned to:</strong>
+							{{ task.assignee }}
+						</p>
+						<button @click="toTesting(task)" type="button" class="btn btn-warning" data-dismiss="modal">Testing</button>
+						<button @click="remove(task)" type="button" class="btn btn-danger" data-dismiss="modal">Delete</button>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					</div>
 				</div>
 			</div>
+		</div>
+	<!-- Modal -->
 
-		<!-- Modal -->
-				<div class="modal fade" id="wipModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-					<div class="modal-dialog" role="document">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h5 class="modal-title" id="exampleModalLabel">Task Title dari Data</h5>
-								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body">
-								<p class="test-center">
-									<strong>Description:</strong>
-									Ini dari data
-								</p>
-								<p class="test-center">
-									<strong>Poin:</strong>
-									Ini dari data
-								</p>
-								<p class="test-center">
-									<strong>Assigned to:</strong>
-									Ini dari data
-								</p>
-								<button type="button" class="btn btn-danger">Delete</button>
-								<button type="button" class="btn btn-success">Next</button>
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-								<button type="button" class="btn btn-primary">Add Task</button>
-							</div>
-						</div>
-					</div>
-				</div>
-		<!-- Todo -->
 	</div>
+
+</div>
 </template>
 
 <script>
 export default {
-	
+	computed: {
+		tasks () {
+			return this.$store.getters.taskDone
+		}
+	},
+	methods: {
+		remove(task) {
+			if (window.confirm('Are you sure to delete this task?')) {
+				this.$store.dispatch('removeTask', task.id)
+			}
+		},
+		toTesting (task) {
+			if (window.confirm('Make this task become testing again?')) {
+				this.$store.dispatch('toTesting', task)
+			}
+		}
+	}
 }
 </script>
 
-<style>
+<style scoped>
 
 </style>
