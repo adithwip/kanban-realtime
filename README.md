@@ -2,6 +2,7 @@
 > A Vue.js + Firebase project.
 
 ## Build Setup
+If you want to clone this repo and then try to host it to your localhost, simply:
 
 ``` bash
 # change directory to client
@@ -13,4 +14,6 @@ npm install
 npm run dev
 ```
 
-live-demo: link soon
+live-demo: https://kanban-realtime.firebaseapp.com/#/
+
+great tutorial: https://medium.com/@ShayneOSullivan/deploy-a-vue-js-app-with-firebase-hosting-3fc420cf3998
